@@ -6,9 +6,14 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
+import utilities.PageUtility;
+import utilities.WaitUtility;
+
 public class AdminUsersPage {
 
 	public WebDriver driver;
+	WaitUtility waitUtility = new WaitUtility();
+	PageUtility pageUtility = new PageUtility();
 	
 	public AdminUsersPage(WebDriver driver) {
 		this.driver = driver;
@@ -21,6 +26,10 @@ public class AdminUsersPage {
 	@FindBy(id = "user_type") WebElement userTypeDropdownField;
 	@FindBy(name = "Create") WebElement saveNewAdminUserSaveButton;
 	
+	@FindBy(xpath = "//div[@class='alert alert-success alert-dismissible']") WebElement adminUserCreationSuccessMessage;
+	@FindBy(xpath = "//*[@id='res']/center") WebElement adminUserSearchFailureMessage;
+	
+	
 	@FindBy(xpath = "//a[@onclick='click_button(2)']") WebElement searchPageAdminUserButton;
 	@FindBy(id = "un") WebElement searchUsernameField;
 	@FindBy(xpath = "//select[@id='ut']") WebElement searchUserTypeDropdownField;
@@ -28,46 +37,69 @@ public class AdminUsersPage {
 	
 	@FindBy(linkText = "Reset") WebElement resetAdminUserButton;
 	
-	public void clickOnCreateNewAdminUserButton() {
+	public AdminUsersPage clickOnCreateNewAdminUserButton() {
 		createNewAdminUserButton.click();
+		return this;
 	}
 	
-	public void clickOnSaveNewAdminUserSaveButton() {
+	public AdminUsersPage clickOnSaveNewAdminUserSaveButton() {
+		waitUtility.waitUntilElementToBeClickable(driver, saveNewAdminUserSaveButton);
 		saveNewAdminUserSaveButton.click();
+		return this;
 	}
 	
-	public void clickOnSearchAdminUserButton() {
+	public AdminUsersPage clickOnSearchAdminUserButton() {
 		searchPageAdminUserButton.click();
+		return this;
 	}
 	
-	public void clickOnSubmitSearchAdminUserButton() {
+	public AdminUsersPage clickOnSubmitSearchAdminUserButton() {
 		submitSearchAdminUserButton.click();
+		return this;
 	}
 	
-	public void clickOnResetAdminUserButton() {
+	public AdminUsersPage clickOnResetAdminUserButton() {
 		resetAdminUserButton.click();
+		return this;
 	}
 	
-	public void enterAdminUsernameField(String username) {
+	public AdminUsersPage enterAdminUsernameField(String username) {
 		usernameField.sendKeys(username);
+		return this;
 	}
 	
-	public void enterAdminPasswordField(String password) {
+	public AdminUsersPage enterAdminPasswordField(String password) {
 		passwordField.sendKeys(password);
+		return this;
 	}
 	
-	public void selectAdminUsertype(String value) {
-		Select sobj = new Select(userTypeDropdownField);
-		sobj.selectByValue(value);
+	public AdminUsersPage selectAdminUsertype(String value) {
+//		Select sobj = new Select(userTypeDropdownField);
+//		sobj.selectByValue(value);
+		
+		pageUtility.selectDropdownWithValue(userTypeDropdownField, value);
+		return this;
 	}
 	
-	public void enterAdminUsernameSearchField(String username) {
+	public AdminUsersPage enterAdminUsernameSearchField(String username) {
 		searchUsernameField.sendKeys(username);
+		return this;
 	}
 	
-	public void selectAdminUsertypeSearchField(String value) {
-		Select sobj = new Select(searchUserTypeDropdownField);
-		sobj.selectByValue(value);
+	public AdminUsersPage selectAdminUsertypeSearchField(String value) {
+//		Select sobj = new Select(searchUserTypeDropdownField);
+//		sobj.selectByValue(value);
+		
+		pageUtility.selectDropdownWithValue(searchUserTypeDropdownField, value);
+		return this;
+	}
+	
+	public boolean isAdminUserCreationSuccessMessageDisplayed() {
+		return adminUserCreationSuccessMessage.isDisplayed();
+	}
+	
+	public boolean isAdminUserSearchFailureMessageDisplayed() {
+		return adminUserSearchFailureMessage.isDisplayed();
 	}
 	
 }

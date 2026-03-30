@@ -18,6 +18,9 @@ public class ManageNewsPage {
 	@FindBy(id = "news") WebElement newsField;
 	@FindBy(name = "create") WebElement submitNewNewsButton;
 	
+	@FindBy(xpath = "//div[@class='alert alert-success alert-dismissible']") WebElement newsCreationSuccessMessage;
+	@FindBy(xpath = "//*[@id='res']/center") WebElement newsSearchFailureMessage;
+	
 	@FindBy(xpath = "//a[@onclick='click_button(2)']") WebElement searchNewsButton;
 	@FindBy(name = "un") WebElement searchNewsField;
 	@FindBy(name = "Search") WebElement submitSearchNewsButton;
@@ -28,29 +31,41 @@ public class ManageNewsPage {
 		createNewNewsButton.click();
 	}
 	
-	public void clickOnSubmitNewNewsButtonn() {
+	public ManageNewsPage clickOnSubmitNewNewsButtonn() {
 		submitNewNewsButton.click();
+		return this;
 	}
 	
-	public void clickOnSearchNewsButton() {
+	public ManageNewsPage clickOnSearchNewsButton() {
 		searchNewsButton.click();
+		return this;
 	}
 	
-	public void clickOnSubmitSearchNewsButton() {
+	public ManageNewsPage clickOnSubmitSearchNewsButton() {
 		submitSearchNewsButton.click();
+		return this;
 	}
 	
 	public void clickOnResetNewsButton() {
 		resetNewsButton.click();
 	}
 	
-	public void enterNewsField(String news) {
+	public ManageNewsPage enterNewsField(String news) {
 		newsField.sendKeys(news);
+		return this;
 	}
 	
-	public void enterSearchNewsField(String news) {
+	public ManageNewsPage enterSearchNewsField(String news) {
 		searchNewsField.sendKeys(news);
+		return this;
 	}
 	
+	public boolean isNewsCreationSuccessMessageDisplayed() {
+		return newsCreationSuccessMessage.isDisplayed();
+	}
+	
+	public boolean isNewsSearchFailureMessageDisplayed() {
+		return newsSearchFailureMessage.isDisplayed();
+	}
 	
 }

@@ -19,19 +19,24 @@ public class HomePage {
 	@FindBy(xpath = "/html/body/div/div[1]/section/div/div/div[1]/div/a") WebElement adminUsersMoreinfoButton;
 	@FindBy(xpath = "/html/body/div/div[1]/section/div/div/div[7]/div/a") WebElement manageNewsMoreinfoButton;
 	
-	public void clickOnAdminIcon() {
+	public HomePage clickOnAdminIcon() {
 		adminIcon.click();
+		return this;
 	}
 	
-	public void clickOnLogoutButton() {
+	public LoginPage clickOnLogoutButton() {
 		logoutButton.click();
+		return new LoginPage(driver);
 	}
 	
-	public void clickOnAdminUsersMoreinfoButton() {
+	public AdminUsersPage clickOnAdminUsersMoreinfoButton() {
 		adminUsersMoreinfoButton.click();
+		return new AdminUsersPage(driver);
 	}
 
-	public void clickOnManageNewsMoreinfoButton() {
+	public ManageNewsPage clickOnManageNewsMoreinfoButton() {
 		manageNewsMoreinfoButton.click();
+		return new ManageNewsPage(driver);
 	}
+	
 }

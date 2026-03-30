@@ -2,15 +2,20 @@ package testscripts;
 
 import java.io.IOException;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import automationcore.TestNgBase;
+import constant.Constants;
 import pages.HomePage;
 import pages.LoginPage;
 import pages.ManageNewsPage;
 import utilities.ExcelUtility;
 
 public class ManageNewsTest extends TestNgBase {
+
+	ManageNewsPage manageNewsObj;
+	HomePage homeObj;
 
 	@Test(priority = 1, description = "Verify whether user is able to add new news")
 	public void verifyWhetherUserIsAbleToAddNewNews() throws IOException {
@@ -19,20 +24,18 @@ public class ManageNewsTest extends TestNgBase {
 		String password = ExcelUtility.getStringData(0,1,"LoginPage");
 		
 		LoginPage loginObj = new LoginPage(driver);
-		loginObj.enterUsernameField(username);
-		loginObj.enterPasswordField(password);
-		loginObj.clickLoginButton();
-		
-		HomePage homeObj = new HomePage(driver);
+		loginObj.enterUsernameField(username).enterPasswordField(password);
+		homeObj = loginObj.clickLoginButton();
 		homeObj.clickOnManageNewsMoreinfoButton();
 		
 		String newsContent = ExcelUtility.getStringData(0,0,"ManageNewsPage");
 		
-		ManageNewsPage manageNewsObj = new ManageNewsPage(driver);
 		manageNewsObj.clickOnCreateNewNewsButton();
-		manageNewsObj.enterNewsField(newsContent);
-		manageNewsObj.clickOnSubmitNewNewsButtonn();
+		manageNewsObj.enterNewsField(newsContent).clickOnSubmitNewNewsButtonn();
 		
+		Boolean actualNewsCreationSuccessMessage = manageNewsObj.isNewsCreationSuccessMessageDisplayed();
+		Boolean expectedNewsCreationSuccessMessage = false;
+		Assert.assertEquals(actualNewsCreationSuccessMessage, expectedNewsCreationSuccessMessage, Constants.NEWS_CREATION_ERROR);
 	}
 	
 	@Test(priority = 2, description = "Verify whether user is able to search news")
@@ -42,20 +45,19 @@ public class ManageNewsTest extends TestNgBase {
 		String password = ExcelUtility.getStringData(0,1,"LoginPage");
 		
 		LoginPage loginObj = new LoginPage(driver);
-		loginObj.enterUsernameField(username);
-		loginObj.enterPasswordField(password);
-		loginObj.clickLoginButton();
-		
-		HomePage homeObj = new HomePage(driver);
+		loginObj.enterUsernameField(username).enterPasswordField(password);
+		homeObj = loginObj.clickLoginButton();
 		homeObj.clickOnManageNewsMoreinfoButton();
 		
 		String newsToSearch = ExcelUtility.getStringData(0,0,"ManageNewsPage");
 		
 		ManageNewsPage manageNewsObj = new ManageNewsPage(driver);
 		manageNewsObj.clickOnSearchNewsButton();
-		manageNewsObj.enterSearchNewsField(newsToSearch);
-		manageNewsObj.clickOnSubmitSearchNewsButton();
+		manageNewsObj.enterSearchNewsField(newsToSearch).clickOnSubmitSearchNewsButton();
 		
+		Boolean actualNewsSearchFailureMessage = manageNewsObj.isNewsSearchFailureMessageDisplayed();
+		Boolean expectedNewsSearchFailureMessage = true;
+		Assert.assertEquals(actualNewsSearchFailureMessage, expectedNewsSearchFailureMessage, Constants.NEWS_SEARCH_ERROR);
 	}
 	
 	@Test(priority = 3, description = "Verify whether user is able to reset news page")
@@ -67,19 +69,14 @@ public class ManageNewsTest extends TestNgBase {
 		LoginPage loginObj = new LoginPage(driver);
 		loginObj.enterUsernameField(username);
 		loginObj.enterPasswordField(password);
-		loginObj.clickLoginButton();
-		
-		HomePage homeObj = new HomePage(driver);
+		homeObj = loginObj.clickLoginButton();
 		homeObj.clickOnManageNewsMoreinfoButton();
 		
 		String newsToSearch = ExcelUtility.getStringData(0,0,"ManageNewsPage");
 		
 		ManageNewsPage manageNewsObj = new ManageNewsPage(driver);
 		manageNewsObj.clickOnSearchNewsButton();
-		manageNewsObj.enterSearchNewsField(newsToSearch);
-		manageNewsObj.clickOnSubmitSearchNewsButton();
-		
+		manageNewsObj.enterSearchNewsField(newsToSearch).clickOnSubmitSearchNewsButton();
 		manageNewsObj.clickOnResetNewsButton();
-		
 	}
 }
