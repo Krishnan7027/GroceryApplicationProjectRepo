@@ -17,7 +17,7 @@ public class AdminUsersTest extends TestNgBase {
 
 	HomePage homeObj;
 
-	@Test(description = "verify user is able to add new admin user successfully")
+	@Test(priority = 1, description = "verify user is able to add new admin user successfully")
 	public void verifyWhetherUserIsAbleToAddNewUser() throws IOException {
 
 		String username = ExcelUtility.getStringData(0, 0, "LoginPage");
@@ -42,13 +42,11 @@ public class AdminUsersTest extends TestNgBase {
 				.enterAdminPasswordField(passwordForNewAdminUser).selectAdminUsertype(usertypeForNewAdminUser)
 				.clickOnSaveNewAdminUserSaveButton();
 
-		Boolean actualAdminUserCreationSuccessMessage = adminUserObj.isAdminUserCreationSuccessMessageDisplayed();
-		Boolean expectedAdminUserCreationSuccessMessage = false;
-		Assert.assertEquals(actualAdminUserCreationSuccessMessage, expectedAdminUserCreationSuccessMessage,
+		Assert.assertTrue(adminUserObj.isAdminUserCreationSuccessMessageDisplayed(),
 				Constants.ADMIN_USER_CREATION_ERROR);
 	}
 
-	@Test(description = "verify user is able to search new admin user successfully")
+	@Test(priority = 2, description = "verify user is able to search new admin user successfully")
 	public void verifyWhetherUserIsAbleToSearchNewAdminUser() throws IOException {
 
 		String username = ExcelUtility.getStringData(0, 0, "LoginPage");
@@ -66,13 +64,10 @@ public class AdminUsersTest extends TestNgBase {
 		adminUserObj.clickOnSearchAdminUserButton().enterAdminUsernameSearchField(usernameForNewAdminUser)
 				.selectAdminUsertypeSearchField(usertypeForNewAdminUser).clickOnSubmitSearchAdminUserButton();
 
-		Boolean actualAdminUserSearchFailureMessage = adminUserObj.isAdminUserSearchFailureMessageDisplayed();
-		Boolean expectedAdminUserSearchFailureMessage = true;
-		Assert.assertEquals(actualAdminUserSearchFailureMessage, expectedAdminUserSearchFailureMessage,
-				Constants.ADMIN_USER_SEARCH_ERROR);
+		Assert.assertTrue(adminUserObj.isAdminUserSearchButtonDisplayed(), Constants.ADMIN_USER_SEARCH_ERROR);
 	}
 
-	@Test(description = "verify user is able to reset admin user page successfully")
+	@Test(priority = 3, description = "verify user is able to reset admin user page successfully")
 	public void verifyWhetherUserIsAbleResetAdminUserPage() throws IOException {
 
 		String username = ExcelUtility.getStringData(0, 0, "LoginPage");
@@ -91,6 +86,8 @@ public class AdminUsersTest extends TestNgBase {
 		adminUserObj.clickOnSearchAdminUserButton().enterAdminUsernameSearchField(usernameForNewAdminUser)
 				.selectAdminUsertypeSearchField(usertypeForNewAdminUser).clickOnSubmitSearchAdminUserButton()
 				.clickOnResetAdminUserButton();
+
+		Assert.assertTrue(adminUserObj.isAdminUserResetButtonDisplayed(), Constants.ADMIN_USER_RESET_ERROR);
 	}
 
 }

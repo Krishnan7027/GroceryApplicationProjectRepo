@@ -8,10 +8,10 @@
   	<parameter name="browserName" value="chrome"/>
     <classes>
 
-      <class name="testscripts.LoginTest">
-      	<methods>
-      		<include name="verifyUserLoginWithValidUsernameInvalidPassword"/>
-      	</methods>
+      <class name="testscripts.HomeTest">
+<!--      <methods>
+      <include name="verifyWhetherUserIsAbleToSearchNews"></include>
+      </methods>-->
       </class>
     </classes>
   </test>

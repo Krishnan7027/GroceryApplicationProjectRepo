@@ -48,7 +48,7 @@ public class LoginTest extends TestNgBase {
 		pageObj.enterUsernameField(username).enterPasswordField(password).clickLoginButton();
 
 		boolean isSignInButtonDisplayed = pageObj.isSignInButtonDisplayed();
-		Assert.assertFalse(isSignInButtonDisplayed,Constants.INVALID_USERNAME_VALID_PASSWORD_ERROR);
+		Assert.assertTrue(isSignInButtonDisplayed,Constants.INVALID_USERNAME_VALID_PASSWORD_ERROR);
 	}
 
 	@Test(priority = 4, dataProvider = "loginProvider" , description = "verify User Login With Valid Username Invalid Password")

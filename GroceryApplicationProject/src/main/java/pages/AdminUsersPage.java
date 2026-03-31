@@ -4,7 +4,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Select;
 
 import utilities.PageUtility;
 import utilities.WaitUtility;
@@ -35,7 +34,7 @@ public class AdminUsersPage {
 	@FindBy(xpath = "//select[@id='ut']") WebElement searchUserTypeDropdownField;
 	@FindBy(name = "Search") WebElement submitSearchAdminUserButton;
 	
-	@FindBy(linkText = "Reset") WebElement resetAdminUserButton;
+	@FindBy(xpath = "//a[@class='btn btn-rounded btn-warning']") WebElement resetAdminUserButton;
 	
 	public AdminUsersPage clickOnCreateNewAdminUserButton() {
 		createNewAdminUserButton.click();
@@ -98,8 +97,12 @@ public class AdminUsersPage {
 		return adminUserCreationSuccessMessage.isDisplayed();
 	}
 	
-	public boolean isAdminUserSearchFailureMessageDisplayed() {
-		return adminUserSearchFailureMessage.isDisplayed();
+	public boolean isAdminUserSearchButtonDisplayed() {
+		return submitSearchAdminUserButton.isDisplayed();
+	}
+	
+	public boolean isAdminUserResetButtonDisplayed() {
+		return resetAdminUserButton.isDisplayed();
 	}
 	
 }

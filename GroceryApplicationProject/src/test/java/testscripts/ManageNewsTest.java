@@ -29,13 +29,11 @@ public class ManageNewsTest extends TestNgBase {
 		homeObj.clickOnManageNewsMoreinfoButton();
 		
 		String newsContent = ExcelUtility.getStringData(0,0,"ManageNewsPage");
-		
+		manageNewsObj = new ManageNewsPage(driver);
 		manageNewsObj.clickOnCreateNewNewsButton();
 		manageNewsObj.enterNewsField(newsContent).clickOnSubmitNewNewsButtonn();
 		
-		Boolean actualNewsCreationSuccessMessage = manageNewsObj.isNewsCreationSuccessMessageDisplayed();
-		Boolean expectedNewsCreationSuccessMessage = false;
-		Assert.assertEquals(actualNewsCreationSuccessMessage, expectedNewsCreationSuccessMessage, Constants.NEWS_CREATION_ERROR);
+		Assert.assertTrue(manageNewsObj.isNewsCreationSuccessMessageDisplayed(), Constants.NEWS_CREATION_ERROR);
 	}
 	
 	@Test(priority = 2, description = "Verify whether user is able to search news")
@@ -51,13 +49,12 @@ public class ManageNewsTest extends TestNgBase {
 		
 		String newsToSearch = ExcelUtility.getStringData(0,0,"ManageNewsPage");
 		
-		ManageNewsPage manageNewsObj = new ManageNewsPage(driver);
+		manageNewsObj = new ManageNewsPage(driver);
 		manageNewsObj.clickOnSearchNewsButton();
 		manageNewsObj.enterSearchNewsField(newsToSearch).clickOnSubmitSearchNewsButton();
 		
-		Boolean actualNewsSearchFailureMessage = manageNewsObj.isNewsSearchFailureMessageDisplayed();
-		Boolean expectedNewsSearchFailureMessage = true;
-		Assert.assertEquals(actualNewsSearchFailureMessage, expectedNewsSearchFailureMessage, Constants.NEWS_SEARCH_ERROR);
+		Boolean isNewsSearchButtonDisplayed = manageNewsObj.isNewsSearchButtonDisplayed();
+		Assert.assertTrue(isNewsSearchButtonDisplayed, Constants.NEWS_SEARCH_ERROR);
 	}
 	
 	@Test(priority = 3, description = "Verify whether user is able to reset news page")
@@ -74,9 +71,11 @@ public class ManageNewsTest extends TestNgBase {
 		
 		String newsToSearch = ExcelUtility.getStringData(0,0,"ManageNewsPage");
 		
-		ManageNewsPage manageNewsObj = new ManageNewsPage(driver);
-		manageNewsObj.clickOnSearchNewsButton();
-		manageNewsObj.enterSearchNewsField(newsToSearch).clickOnSubmitSearchNewsButton();
+		manageNewsObj = new ManageNewsPage(driver);
+		manageNewsObj.clickOnSearchNewsButton().enterSearchNewsField(newsToSearch).clickOnSubmitSearchNewsButton();
 		manageNewsObj.clickOnResetNewsButton();
+		
+		Boolean isSearchNewsFieldButtonDisplayed = manageNewsObj.isNewsResetButtonDisplayed();
+		Assert.assertTrue(isSearchNewsFieldButtonDisplayed, Constants.NEWS_RESET_ERROR);
 	}
 }

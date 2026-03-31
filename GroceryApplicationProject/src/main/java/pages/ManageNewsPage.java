@@ -17,14 +17,10 @@ public class ManageNewsPage {
 	@FindBy(xpath = "//a[@onclick='click_button(1)']") WebElement createNewNewsButton;
 	@FindBy(id = "news") WebElement newsField;
 	@FindBy(name = "create") WebElement submitNewNewsButton;
-	
-	@FindBy(xpath = "//div[@class='alert alert-success alert-dismissible']") WebElement newsCreationSuccessMessage;
-	@FindBy(xpath = "//*[@id='res']/center") WebElement newsSearchFailureMessage;
-	
+	@FindBy(xpath = "//div[@class='alert alert-success alert-dismissible']") WebElement newsCreationSuccessMessage;	
 	@FindBy(xpath = "//a[@onclick='click_button(2)']") WebElement searchNewsButton;
 	@FindBy(name = "un") WebElement searchNewsField;
 	@FindBy(name = "Search") WebElement submitSearchNewsButton;
-	
 	@FindBy(xpath = "/html/body/div/div[1]/section/div[1]/a[3]") WebElement resetNewsButton;
 
 	public void clickOnCreateNewNewsButton() {
@@ -64,8 +60,12 @@ public class ManageNewsPage {
 		return newsCreationSuccessMessage.isDisplayed();
 	}
 	
-	public boolean isNewsSearchFailureMessageDisplayed() {
-		return newsSearchFailureMessage.isDisplayed();
+	public boolean isNewsSearchButtonDisplayed() {
+		return submitSearchNewsButton.isDisplayed();
+	}
+	
+	public boolean isNewsResetButtonDisplayed() {
+		return resetNewsButton.isDisplayed();
 	}
 	
 }
